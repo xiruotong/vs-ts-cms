@@ -1,0 +1,17 @@
+# 忽略目录
+node_modules/
+dist/
+coverage/
+*.local
+
+# 忽略特定文件类型
+*.log
+*.lock
+
+# 忽略配置文件
+.eslintrc.*
+.prettierrc.*
+
+# 忽略生成的文件
+*.min.js
+*.min.css
