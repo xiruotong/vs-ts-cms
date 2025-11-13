@@ -14,8 +14,8 @@ import 'normalize.css'
 import './assets/css/index.less'
 import App from './App.vue'
 import router from './router'
-import pinia from './store'
 import registerIcons from './global/register-icons'
+import registerStore from './store'
 
 // 2.按需引入element plus
 // import { ElButton } from 'element-plus'
@@ -23,4 +23,12 @@ import registerIcons from './global/register-icons'
 // app.component(ElButton.name, ElButton)
 
 const app = createApp(App)
-app.use(registerIcons).use(router).use(pinia).mount('#app')
+
+app.use(registerIcons)
+
+// app.use(pinia)
+// const loginStore = useLoginStore()
+// loginStore.loadLocalCacheAction()
+app.use(registerStore)
+app.use(router)
+app.mount('#app')

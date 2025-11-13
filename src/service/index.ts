@@ -1,32 +1,22 @@
-import { BASE_URL, TIME_OUT } from "./config";
-import HYRequest from "./request";
+import { localCache } from '@/utils/cache'
+import { BASE_URL, TIME_OUT } from './config'
+import HYRequest from './request'
+import { LOGIN_TOKEN } from '@/global/register-icons'
 
 const hyRequest = new HYRequest({
   baseURL: BASE_URL,
-  timeout: TIME_OUT
-})
-
-export const hyRequest2 = new HYRequest({
-  baseURL: "http://codercba.com:1888/airbnb/api",
-  timeout: 8000,
+  timeout: TIME_OUT,
   interceptors: {
     requestSuccessFn: (config) => {
-      console.log('entire请求成功拦截')
+      // 每一个请求都自动携带token
+      const token = localCache.getCache(LOGIN_TOKEN)
+      if (config.headers && token) {
+        // 类型缩小
+        config.headers.Authorization = 'Bearer ' + token
+      }
       return config
     },
-    requestFailureFn: (err) => {
-      console.log('entire请求失败拦截')
-      return err
-    },
-    responseSuccessFn: (config) => {
-      console.log('entire响应成功拦截')
-      return config
-    },
-    responseFailureFn: (err) => {
-      console.log('entire响应失败拦截')
-      return err
-    }
-  }
+  },
 })
 
 export default hyRequest

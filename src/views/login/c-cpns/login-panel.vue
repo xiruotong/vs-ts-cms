@@ -39,18 +39,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import panelPhone from './panel-phone.vue'
 import panelAccount from './panel-account.vue'
+import { localCache } from '@/utils/cache'
+
+const CACHE_ISKEEP = 'isKeep'
 
 const activeName = ref('account')
-const isKeep = ref(false)
+const isKeep = ref<boolean>(localCache.getCache(CACHE_ISKEEP) ?? false)
+watch(isKeep, (newValue) => {
+  localCache.setCache(CACHE_ISKEEP, newValue)
+})
 const accountRef = ref<InstanceType<typeof panelAccount>>()
 
 function handleLoginBtnClick() {
   if (activeName.value === 'account') {
     // 1.获取子组件实例
-    accountRef.value?.loginAction()
+    accountRef.value?.loginAction(isKeep.value)
     // 2.
   } else {
     console.log('手机登录')

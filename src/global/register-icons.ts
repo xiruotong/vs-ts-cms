@@ -7,4 +7,6 @@ function registerIcons(app: App<Element>) {
   }
 }
 
+export const LOGIN_TOKEN = 'login/token'
+
 export default registerIcons

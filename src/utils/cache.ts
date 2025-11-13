@@ -28,7 +28,7 @@ class Cache {
     }
   }
 
-  deleteCache(key: any) {
+  removeCache(key: any) {
     this.storage.removeItem(key)
   }
 
